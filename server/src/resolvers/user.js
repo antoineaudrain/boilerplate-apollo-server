@@ -1,12 +1,18 @@
 // import { crypto, jwt } from '../utils/helpers'
+import { REGEX } from '../utils/helpers'
 
 export const Query = {
   // eslint-disable-next-line
-  getUser: (parent, { id }) => ({
-    id: 'b7c64447-bbac-4a67-a94a-41df7c6cf332',
-    username: 'this is a username',
-    email: 'this is an email'
-  }),
+  getUser: (parent, { id }) => {
+    if (id === 'b7c64447-bbac-4a67-a94a-41df7c6cf332') {
+      return {
+        id: 'b7c64447-bbac-4a67-a94a-41df7c6cf332',
+        username: 'this is a username',
+        email: 'this is an email'
+      }
+    }
+    throw Error('Not Found!')
+  },
   // eslint-disable-next-line
   allUsers: (parent, args) => [
     {
@@ -41,8 +47,15 @@ export const Mutation = {
   },
   // eslint-disable-next-line
   register: async (parent, { input }) => {
-    // try {
     // const user = create user
+    const { email, username, password } = input
+    if (!REGEX.email.test(email)) {
+      throw Error('Wrong email!')
+    } else if (!REGEX.password.test(password)) {
+      throw Error('Wrong password!')
+    } else if (!REGEX.username.test(username)) {
+      throw Error('Username must contains at least 5 characters!')
+    }
 
     return {
       user: {
@@ -51,8 +64,5 @@ export const Mutation = {
         email: 'this is an email'
       }
     }
-    // } catch (err) {
-    //   throw new Error(err)
-    // }
   }
 }
