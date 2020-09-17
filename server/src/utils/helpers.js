@@ -1,17 +1,6 @@
 import { createHmac } from 'crypto'
 import { sign, verify } from 'jsonwebtoken'
 
-export const mergeResolvers = (resolvers) =>
-  Object.values(resolvers).reduce(
-    (acc, { Query, Mutation, Subscription, ...other }) => ({
-      ...acc,
-      Query: { ...acc.Query, ...Query },
-      Mutation: { ...acc.Mutation, ...Mutation },
-      ...other
-    }),
-    {}
-  )
-
 export const crypto = {
   hash: (password, passwordKey) =>
     createHmac('sha512', passwordKey).update(password).digest('hex'),
