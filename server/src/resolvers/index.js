@@ -1,6 +1,6 @@
 import * as User from './user'
 
-const mergeResolvers = (resolvers) => Object.values(resolvers).reduce(
+const mergeResolvers = (resolvers) => resolvers.reduce(
   (acc, { Query, Mutation, Subscription, ...other }) => ({
     ...acc,
     Query: { ...acc.Query, ...Query },
@@ -10,6 +10,6 @@ const mergeResolvers = (resolvers) => Object.values(resolvers).reduce(
   {}
 )
 
-export default mergeResolvers({
+export default mergeResolvers([
   User
-})
+])

@@ -17,7 +17,6 @@ export default new ApolloServer({
     if (authorization) {
       context.user = jwt.decode(authorization.split(' ')[1])?.user
     }
-
     return context
   },
   playground: process.env.NODE_ENV !== 'production',
