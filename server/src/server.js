@@ -12,17 +12,13 @@ export default new ApolloServer({
   ),
   resolvers,
   context: async ({ req }) => {
-    try {
-      const context = {}
-      const authorization = req?.headers?.authorization
-      if (authorization) {
-        context.user = jwt.decode(authorization.split(' ')[1])?.user
-      }
-
-      return context
-    } catch (err) {
-      throw new Error(err)
+    const context = {}
+    const authorization = req?.headers?.authorization
+    if (authorization) {
+      context.user = jwt.decode(authorization.split(' ')[1])?.user
     }
+
+    return context
   },
   playground: process.env.NODE_ENV !== 'production',
   introspection: true
