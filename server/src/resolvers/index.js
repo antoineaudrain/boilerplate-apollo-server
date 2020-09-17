@@ -1,15 +1,16 @@
-import * as User from './user'
+import getUser from './Query/getUser'
+import allUsers from './Query/allUsers'
 
-const mergeResolvers = (resolvers) => resolvers.reduce(
-  (acc, { Query, Mutation, Subscription, ...other }) => ({
-    ...acc,
-    Query: { ...acc.Query, ...Query },
-    Mutation: { ...acc.Mutation, ...Mutation },
-    ...other
-  }),
-  {}
-)
+import login from './Mutation/login'
+import register from './Mutation/register'
 
-export default mergeResolvers([
-  User
-])
+export default {
+  Query: {
+    getUser,
+    allUsers
+  },
+  Mutation: {
+    login,
+    register
+  }
+}
