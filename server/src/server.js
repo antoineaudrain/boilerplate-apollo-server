@@ -1,8 +1,8 @@
 import { ApolloServer } from 'apollo-server'
 import { readdirSync, readFileSync } from 'fs'
 import { join } from 'path'
-import resolvers from './resolvers'
 import { jwt } from './utils/helpers'
+import resolvers from './resolvers'
 
 const SCHEMA_DIRECTORY = join(__dirname, 'schema')
 
@@ -20,8 +20,8 @@ export default new ApolloServer({
       }
 
       return context
-    } catch(err) {
-      console.error(err)
+    } catch (err) {
+      throw new Error(err)
     }
   },
   playground: process.env.NODE_ENV !== 'production',
